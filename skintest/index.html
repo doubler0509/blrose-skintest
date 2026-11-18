@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>피부 타입 테스트 | 블로즈 BLROSE</title>
+<meta name="description" content="내 피부 타입, 30초 테스트로 알아보세요. 10개 질문으로 피부 타입과 맞춤 루틴을 알려드려요.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#ffffff">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:title" content="블로즈 피부 타입 테스트">
+<meta property="og:description" content="내 피부 타입, 30초 테스트로 알아보세요">
+<link rel="stylesheet" href="css/skintest.css?v=0.1.0">
+</head>
+<body>
+
+<!-- 카페24 로그인 상태 모듈: 로그인했을 때만 아래 표시가 페이지에 남는다.
+     (시제품 환경에서는 이 표시를 무시하고 ?login=1 로 판별한다) -->
+<div module="Layout_stateLogon" hidden><span id="skintest-logon-flag"></span></div>
+
+<div id="app" class="app">
+
+  <!-- ───────── S0 PC 안내 ───────── -->
+  <section id="s0" class="screen screen--pc" aria-labelledby="s0-title">
+    <div class="pc-card">
+      <p class="wordmark" data-wordmark>Blrose</p>
+      <h1 id="s0-title" class="pc-title">모바일에서 진행해 주세요</h1>
+      <p class="pc-desc" data-copy="pcGuide"></p>
+      <div id="qr-box" class="qr-box" role="img" aria-label="현재 주소 QR코드"></div>
+      <a class="text-link" data-shop-link href="https://blrose.co.kr/">블로즈 쇼핑하러 가기</a>
+    </div>
+  </section>
+
+  <!-- ───────── S1 인트로 ───────── -->
+  <section id="s1" class="screen" aria-labelledby="s1-title">
+    <header class="topbar"><p class="wordmark" data-wordmark>Blrose</p></header>
+    <div class="intro">
+      <p class="eyebrow">SKIN TYPE TEST</p>
+      <h1 id="s1-title" class="headline">내 피부 타입,<br><em>30초</em>면 알 수 있어요</h1>
+      <p class="lead">10개 질문에 답하면 피부 타입과<br>나에게 맞는 스킨케어 루틴을 알려드려요.</p>
+      <ul class="meta-chips">
+        <li>문항 10개</li>
+        <li>약 30초</li>
+        <li>사진 체크는 선택</li>
+      </ul>
+      <div class="intro-art" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="#FBEFF2"/><path d="M100 38C100 38 58 88 58 118a42 42 0 0 0 84 0C142 88 100 38 100 38Z" fill="#fff" stroke="#BF1541" stroke-width="4"/><path d="M82 122a18 18 0 0 0 18 18" fill="none" stroke="#E5BCC8" stroke-width="5" stroke-linecap="round"/><circle cx="150" cy="62" r="7" fill="#E5BCC8"/><circle cx="46" cy="140" r="5" fill="#E5BCC8"/></svg>
+      </div>
+    </div>
+    <div class="bottom">
+      <button type="button" id="btn-start" class="btn btn--primary">테스트 시작</button>
+      <button type="button" id="btn-last" class="text-link" hidden>지난 결과 다시 보기</button>
+      <p class="disclaimer" data-copy="disclaimer"></p>
+    </div>
+  </section>
+
+  <!-- ───────── S2 문진 ───────── -->
+  <section id="s2" class="screen" aria-live="polite">
+    <header class="topbar topbar--quiz">
+      <button type="button" id="btn-back" class="icon-btn" aria-label="이전 문항">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="progress" role="progressbar" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1" id="progress">
+        <div class="progress__bar" id="progress-bar"></div>
+      </div>
+      <p class="progress__count" id="progress-count">1/10</p>
+    </header>
+    <div class="quiz">
+      <p class="quiz__no" id="q-no">Q1</p>
+      <h2 class="quiz__text" id="q-text"></h2>
+      <div class="options" id="q-options"></div>
+    </div>
+  </section>
+
+  <!-- ───────── S3 사진(선택) ───────── -->
+  <section id="s3" class="screen" aria-labelledby="s3-title">
+    <!-- 3-1 안내 -->
+    <div id="photo-intro" class="photo-step">
+      <header class="topbar"><p class="wordmark" data-wordmark>Blrose</p><span class="badge">선택</span></header>
+      <div class="photo-intro">
+        <h2 id="s3-title" class="headline headline--sm">사진으로 한 번 더<br>체크할까요?</h2>
+        <p class="lead">얼굴 사진으로 볼 붉은기·T존 윤기·톤을<br>참고 지표로 확인해요. 건너뛰어도 결과는 같아요.</p>
+        <ul class="guide-list" aria-label="촬영 가이드">
+          <li><span class="guide-ico" aria-hidden="true">☀</span><div><strong>밝은 곳에서 찍어 주세요</strong><small>창가나 조명 아래처럼 얼굴이 환하게 보이는 곳을 권장해요</small></div></li>
+          <li><span class="guide-ico" aria-hidden="true">◎</span><div><strong>정면을 바라봐 주세요</strong><small>얼굴이 가이드 선 안에 들어오게 맞춰 주세요</small></div></li>
+          <li><span class="guide-ico" aria-hidden="true">✦</span><div><strong>맨얼굴을 권장해요</strong><small>화장을 한 상태에서는 지표가 다르게 나올 수 있어요</small></div></li>
+        </ul>
+        <div class="notice notice--privacy">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2M6 10h12v10H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <p><strong data-copy="photoPrivacy"></strong><br>서버로 보내지 않고, 분석이 끝나면 바로 지워요.</p>
+        </div>
+        <p class="hint">[촬영하기]를 누르면 카메라 사용 허용을 물어봐요. 카메라는 참고 지표를 확인하는 데만 쓰고, 촬영이 끝나면 바로 꺼져요.</p>
+      </div>
+      <div class="bottom">
+        <button type="button" id="btn-photo" class="btn btn--primary">촬영하기</button>
+        <button type="button" class="btn btn--ghost" data-photo-skip>건너뛰기</button>
+      </div>
+    </div>
+
+    <!-- 3-2 카메라 -->
+    <div id="photo-camera" class="photo-step photo-step--camera" hidden>
+      <div class="camera">
+        <video id="camera-video" playsinline muted autoplay></video>
+        <svg class="camera__guide" viewBox="0 0 100 140" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <ellipse cx="50" cy="64" rx="31" ry="42" fill="none" stroke="#fff" stroke-width="0.8" stroke-dasharray="3 2"/>
+        </svg>
+        <p class="camera__tip" id="camera-tip">밝은 곳에서, 얼굴을 선 안에 맞추고 정면을 바라봐 주세요</p>
+        <p class="camera__privacy" data-copy="photoPrivacy"></p>
+        <div class="camera__busy" id="camera-busy" hidden><span class="spinner"></span><p>참고 지표를 확인하고 있어요</p></div>
+      </div>
+      <div class="camera-controls">
+        <p class="camera-msg" id="camera-msg" role="alert"></p>
+        <button type="button" id="btn-shutter" class="shutter" aria-label="촬영"><span></span></button>
+        <button type="button" class="text-link text-link--light" data-photo-skip>건너뛰기</button>
+      </div>
+    </div>
+
+    <!-- 3-3 대체 촬영 (카메라가 열리지 않을 때) -->
+    <div id="photo-file" class="photo-step" hidden>
+      <header class="topbar"><p class="wordmark" data-wordmark>Blrose</p><span class="badge">선택</span></header>
+      <div class="photo-intro">
+        <h2 class="headline headline--sm">카메라를 바로 열 수 없어요</h2>
+        <p class="lead">폰 기본 카메라로 찍어서 확인할 수 있어요.<br>밝은 곳에서 정면으로, 얼굴이 크게 나오게 찍어 주세요.</p>
+        <div class="notice notice--privacy">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7 10V8a5 5 0 0 1 10 0v2M6 10h12v10H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <p><strong data-copy="photoPrivacy"></strong></p>
+        </div>
+        <p class="camera-msg camera-msg--dark" id="file-msg" role="alert"></p>
+        <div class="file-busy" id="file-busy" hidden><span class="spinner spinner--rose"></span><p>참고 지표를 확인하고 있어요</p></div>
+      </div>
+      <div class="bottom">
+        <label class="btn btn--primary" id="file-label">
+          폰 카메라로 찍기
+          <input type="file" id="file-input" accept="image/*" capture="user" class="visually-hidden">
+        </label>
+        <button type="button" class="btn btn--ghost" data-photo-skip>건너뛰기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── S4 분석 중 ───────── -->
+  <section id="s4" class="screen screen--center">
+    <div class="loader" aria-hidden="true"><span></span><span></span><span></span></div>
+    <p class="loader-text" role="status">피부 타입을 정리하고 있어요</p>
+  </section>
+
+  <!-- ───────── S5 무료 결과 ───────── -->
+  <section id="s5" class="screen screen--result">
+    <header class="topbar"><p class="wordmark" data-wordmark>Blrose</p></header>
+    <div class="result-hero" data-result-hero></div>
+    <div class="card" data-result-photo hidden></div>
+
+    <h3 class="section-title">가입하면 볼 수 있어요</h3>
+    <ul class="locked-list">
+      <li class="locked"><span class="lock" aria-hidden="true"></span><div><strong>상세 리포트</strong><small>내 타입의 케어 방향과 집중 케어 포인트</small></div></li>
+      <li class="locked"><span class="lock" aria-hidden="true"></span><div><strong>아침·저녁 맞춤 루틴</strong><small>내 타입에 맞는 사용 순서와 추천 제품</small></div></li>
+      <li class="locked"><span class="lock" aria-hidden="true"></span><div><strong>신규가입 <span data-coupon="amount"></span> 쿠폰</strong><small><span data-coupon="condition"></span> · <span data-coupon="period"></span></small></div></li>
+    </ul>
+
+    <div class="sub-actions">
+      <button type="button" class="btn btn--ghost" data-share>결과 공유</button>
+      <a class="text-link" id="link-member" href="#">이미 회원이에요</a>
+      <button type="button" class="text-link" data-retry>다시 하기</button>
+    </div>
+    <p class="disclaimer" data-copy="disclaimer"></p>
+
+    <div class="sticky-cta">
+      <a id="btn-signup" class="btn btn--primary" href="#">가입하고 전체 결과 보기</a>
+    </div>
+  </section>
+
+  <!-- ───────── S6 전체 결과 ───────── -->
+  <section id="s6" class="screen screen--result">
+    <header class="topbar"><p class="wordmark" data-wordmark>Blrose</p></header>
+    <div class="coupon-banner" id="coupon-banner" hidden></div>
+    <div class="result-hero" data-result-hero></div>
+    <div class="card" data-result-photo hidden></div>
+
+    <h3 class="section-title">상세 리포트</h3>
+    <div class="card" id="report"></div>
+
+    <h3 class="section-title">맞춤 루틴</h3>
+    <ol class="routine" id="routine"></ol>
+
+    <h3 class="section-title">추천 제품</h3>
+    <div class="products" id="products"></div>
+    <div id="set-card"></div>
+
+    <div class="sub-actions">
+      <button type="button" class="btn btn--ghost" data-share>결과 공유</button>
+      <button type="button" class="text-link" data-retry>다시 하기</button>
+    </div>
+    <p class="disclaimer" data-copy="disclaimer"></p>
+  </section>
+
+  <!-- ───────── 공유 링크로 들어온 사람 ───────── -->
+  <section id="s-share" class="screen screen--result">
+    <header class="topbar"><p class="wordmark" data-wordmark>Blrose</p></header>
+    <p class="eyebrow eyebrow--center">친구의 피부 타입</p>
+    <div class="result-hero" id="share-hero"></div>
+    <div class="bottom">
+      <p class="lead lead--center">내 피부 타입도 30초면 알 수 있어요</p>
+      <button type="button" id="btn-share-start" class="btn btn--primary">나도 해보기</button>
+      <p class="disclaimer" data-copy="disclaimer"></p>
+    </div>
+  </section>
+
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="js/config.js?v=0.1.0"></script>
+<script src="js/pixel.js?v=0.1.0"></script>
+<script src="js/photo.js?v=0.1.0"></script>
+<script src="js/qr.js?v=0.1.0"></script>
+<script src="js/app.js?v=0.1.0"></script>
+</body>
+</html>
