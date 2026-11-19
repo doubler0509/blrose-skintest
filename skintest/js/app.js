@@ -360,11 +360,14 @@
       return '<li><span class="routine__label">' + esc(s.label) + '</span><span class="routine__text">' + esc(s.text) + '</span></li>';
     }).join('');
 
-    $('#products').innerHTML = t.order.map(function (key, i) {
+    var commonReason = t.commonReason
+      ? '<p class="products__common"><b>전제품 공통</b>' + esc(t.commonReason) + '</p>' : '';
+    $('#products').innerHTML = commonReason + t.order.map(function (key) {
       var p = C.products[key];
+      var strong = key === t.highlight;
       return '<article class="product">' +
         '<img class="product__img" src="' + esc(p.img) + '" alt="' + esc(p.name) + '" loading="lazy">' +
-        '<div><p class="product__rank">추천 ' + (i + 1) + '</p>' +
+        '<div><p class="product__rank' + (strong ? ' product__rank--strong' : '') + '">' + (strong ? '강력추천' : '추천') + '</p>' +
         '<h4 class="product__name">' + esc(p.name) + '</h4>' +
         (p.sub ? '<p class="product__sub">' + esc(p.sub) + '</p>' : '') +
         '<p class="product__reason">' + esc(t.reasons[key] || '') + '</p>' +
@@ -372,7 +375,8 @@
     }).join('');
 
     var set = C.products.set;
-    $('#set-card').innerHTML = '<article class="set-card">' +
+    var showSet = set.items.every(function (key) { return t.order.indexOf(key) !== -1; });
+    $('#set-card').innerHTML = !showSet ? '' : '<article class="set-card">' +
       '<img src="' + esc(set.img) + '" alt="' + esc(set.name) + '" loading="lazy">' +
       '<div><p class="set-card__eyebrow">한 번에 시작하기</p>' +
       '<h4 class="set-card__name">' + esc(set.name) + '</h4>' +
