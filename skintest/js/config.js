@@ -9,6 +9,22 @@
   var host = location.hostname;
   var isCafe24 = /(^|\.)blrose\.co\.kr$/i.test(host);
 
+  /* 제품 사진: 자사몰에서는 카페24에 올라간 상품 이미지, 그 외에는 저장소의 img 폴더 */
+  var shopImg = 'https://ecimg.cafe24img.com/pg2237b49630084082/blrose0509/';
+  var productImg = isCafe24
+    ? {
+        cream: shopImg + 'web/product/medium/20261025/fae70257f928b9ff81e2a9ae807c9429.jpg',
+        ampoule: shopImg + 'web/product/medium/20261020/1485ab2022c9d41365efe21883f415cf.jpg',
+        mask: shopImg + 'web/product/medium/20261025/97420fc55e8dcbf2df31eebb16bdbb01.jpg',
+        set: shopImg + 'skintest-product-set.jpg'
+      }
+    : {
+        cream: 'img/product-cream.jpg',
+        ampoule: 'img/product-ampoule.jpg',
+        mask: 'img/product-mask.jpg',
+        set: 'img/product-set.jpg'
+      };
+
   window.SKINTEST_CONFIG = {
     version: '0.1.0-draft',
 
@@ -139,15 +155,15 @@
     },
 
     /* ───────── 제품 ─────────
-     * productNo: 카페24 상품 번호. 대표 전달 전에는 null (자사몰 메인으로 연결)
-     * img: 공식 제품 이미지로 교체 (현재는 자리 표시 그림)
+     * productNo: 카페24 상품 번호 (자사몰 상품 페이지 주소의 product_no)
+     * img: 위쪽 productImg 에서 지정 (자사몰 상품 이미지를 바꾸면 주소도 함께 바꾼다)
      * set.items: 세트 구성. 이 제품을 모두 추천하는 타입에만 세트 카드가 보인다
      */
     products: {
-      cream:   { name: '리페어 크림', sub: '로즈 엑소좀', productNo: null, img: 'img/product-cream.svg' },
-      ampoule: { name: '하이드라 리페어 앰플', sub: '', productNo: null, img: 'img/product-ampoule.svg' },
-      mask:    { name: '엑소셀 마스크팩', sub: '', productNo: null, img: 'img/product-mask.svg' },
-      set:     { name: '블로즈 올인원 세트', sub: '크림 · 앰플 · 마스크팩 3종 구성', productNo: null, img: 'img/product-set.svg', items: ['cream', 'ampoule', 'mask'] }
+      cream:   { name: '리페어 크림', sub: '로즈 엑소좀', productNo: 31, img: productImg.cream },
+      ampoule: { name: '하이드라 리페어 앰플', sub: '', productNo: 32, img: productImg.ampoule },
+      mask:    { name: '엑소셀 마스크팩', sub: '', productNo: 34, img: productImg.mask },
+      set:     { name: '블로즈 올인원 세트', sub: '크림 · 앰플 · 마스크팩 3종 구성', productNo: 36, img: productImg.set, items: ['cream', 'ampoule', 'mask'] }
     },
 
     /* ───────── 피부 타입 5종 ─────────

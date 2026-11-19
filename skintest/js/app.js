@@ -474,6 +474,7 @@
   }
 
   function init() {
+    document.title = '피부 타입 테스트 | 블로즈 BLROSE';   // 카페24가 쇼핑몰 기본 제목으로 덮어쓰는 것을 되돌린다
     fillStatic();
     bind();
 
