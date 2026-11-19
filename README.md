@@ -65,6 +65,7 @@ skintest/
   js/vendor/qrcode.js      QR 라이브러리 (qrcode-generator 2.0.4, MIT)
   img/                     제품 자리 표시 그림 (공식 이미지로 교체)
 member/join_result.html    가입 완료 화면 흉내 + 카페24에 추가할 스크립트 덩어리
+cafe24/menu-skin-test.html 자사몰 메뉴에 넣을 "Skin Test" 항목 (PC 상단, 모바일 서랍)
 ```
 
 ## 오픈 전에 채워야 하는 것
@@ -86,12 +87,14 @@ member/join_result.html    가입 완료 화면 흉내 + 카페24에 추가할 �
 3. 로그인 판별은 `skintest/index.html` 의 `module="Layout_stateLogon"` 표시를 쓴다. 현재 스킨의 모듈 이름과 같은지 확인한다.
 4. `member/join_result.html` 은 통째로 올리지 않는다. 파일 안의 `▼▼▼ … ▲▲▲` 사이 덩어리만 기존 페이지 맨 아래에 추가한다.
 5. 카페24 메타 연동이 `CompleteRegistration` 을 이미 보내는지 확인한다. 보내지 않을 때만 그 덩어리의 `SEND_COMPLETE_REGISTRATION` 을 `true` 로 바꾼다.
-6. `skintest/index.html` 에는 초안이라 `<meta name="robots" content="noindex">` 가 들어 있다. 검색 노출을 원하면 지운다.
+6. 자사몰 메뉴에 **Skin Test** 항목 하나를 추가한다. 넣을 줄과 위치는 `cafe24/menu-skin-test.html` 에 있다. 하위 메뉴 없는 단독 항목이고 Skin Guide 다음에 온다. PC 상단과 모바일 서랍 두 군데에 넣는다.
+7. `skintest/index.html` 에는 초안이라 `<meta name="robots" content="noindex">` 가 들어 있다. 검색 노출을 원하면 지운다.
 
 ## 지시서와 다르게 한 것
 
 - 문항 오타 2곳을 고쳤다: Q2 "겨은 번들한데" → "겉은 번들한데", Q7 "나쁨 때만" → "나쁠 때만".
 - 쿠폰 발급 배너는 **가입 완료 페이지를 거쳐 돌아온 사람에게만** 보인다. 기존 회원이 로그인해서 볼 때는 신규가입 쿠폰이 발급되지 않기 때문이다.
 - 밝기 검사에 "빛이 너무 강해요" 안내를 하나 더 넣었다 (너무 밝아 얼굴이 하얗게 날아간 경우).
+- 메뉴 링크는 이벤트 메뉴 아래가 아니라 **단독 항목 "Skin Test"** 로 넣는다 (기존 메뉴가 영문이라 표기를 맞췄다).
 - 폰의 뒤로가기 버튼이 페이지를 나가지 않고 이전 문항으로 가게 했다.
 - 타입별 추천 제품은 확정 조합을 쓴다: 건성 앰플(강력추천)+마스크팩, 지성 크림, 민감성·복합성 3종, 수분부족형 앰플+마스크팩. 올인원 세트 카드는 3종을 모두 추천하는 민감성·복합성에만 보인다.
